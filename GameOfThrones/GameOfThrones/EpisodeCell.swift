@@ -10,15 +10,32 @@ import UIKit
 
 class EpisodeCell: UITableViewCell {
 
-    @IBOutlet weak var episodeImageView: UIImageView!
+    @IBOutlet weak var episodeImageView1: UIImageView!
     
-    @IBOutlet weak var episodeTitleLabel: UILabel!
+    @IBOutlet weak var episodeTitleLabel1: UILabel!
     
-    @IBOutlet weak var episodeSeasonAndEpisodeLabel: UILabel!
     
-    func configureCell(for episode: GOTEpisode) {
-        episodeImageView.image = UIImage(named: episode.mediumImageID)
-        episodeTitleLabel.text = episode.name
-        episodeSeasonAndEpisodeLabel.text = "S:\(episode.season) E:\(episode.number)"
+    @IBOutlet weak var episodeSeasonAndEpisodeLabel1: UILabel!
+    
+    
+    
+    @IBOutlet weak var episodeImageView2: UIImageView!
+    
+    @IBOutlet weak var episodeTitleLabel2: UILabel!
+    
+    
+    @IBOutlet weak var episodeSeasonAndEpisodeLabel2: UILabel!
+    
+    
+    func configureOddCell(for episode: GOTEpisode) {
+        episodeImageView1.image = UIImage(named: episode.mediumImageID)
+        episodeTitleLabel1.text = episode.name
+        episodeSeasonAndEpisodeLabel1.text = "S:\(episode.season) E:\(episode.number)"
+    }
+    
+    func configureEvenCell(for episode: GOTEpisode) {
+        episodeImageView2.image = UIImage(named: episode.mediumImageID)
+        episodeTitleLabel2.text = episode.name
+        episodeSeasonAndEpisodeLabel2.text = "S:\(episode.season) E:\(episode.number)"
     }
 }

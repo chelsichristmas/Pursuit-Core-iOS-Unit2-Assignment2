@@ -40,13 +40,26 @@ extension ViewController : UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "episodeCell", for: indexPath) as? EpisodeCell else {
-            fatalError("Unable to dequeue cell")
+        guard let cellOdd = tableView.dequeueReusableCell(withIdentifier: "oddEpisode") as? EpisodeCell else {
+            fatalError("Unable to dequeue oddCell")
+        }
+        
+        guard let cellEven = tableView.dequeueReusableCell(withIdentifier: "evenEpisode") as? EpisodeCell else {
+            fatalError("Unable to deque evenCell")
         }
         
         let episode = GOTSeasons[indexPath.section][indexPath.row]
-        cell.configureCell(for: episode)
-        return cell
+        
+        if episode.season % 2
+            == 0 {
+            cellEven.configureEvenCell(for: episode)
+            return cellEven
+        } else {
+            cellOdd.configureOddCell(for: episode)
+            return cellOdd
+        }
+        
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
