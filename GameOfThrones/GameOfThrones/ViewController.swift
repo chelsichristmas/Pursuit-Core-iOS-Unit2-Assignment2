@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     
-    var GOTSeasons = [[GOTEpisode]]() {
+    var GOTEpisodes = [[GOTEpisode]]() {
         didSet {
             tableView.reloadData()
         }
@@ -28,15 +28,25 @@ class ViewController: UIViewController {
   }
     
     func loadData() {
-        GOTSeasons = GOTEpisode.seasonSections()
+        GOTEpisodes = GOTEpisode.seasonSections()
     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let detailViewController = segue.destination as? DetailViewController, let indexPath = tableView.indexPathForSelectedRow else {
+        fatalError("Unable to access Detail View Controller")
+        }
+        
+        let episodes = GOTEpisodes[indexPath.section][indexPath.row]
+        detailViewController.episode = episodes
+        
+        
+        
+    }
 
 }
 extension ViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return GOTSeasons[section].count
+        return GOTEpisodes[section].count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -48,7 +58,7 @@ extension ViewController : UITableViewDataSource {
             fatalError("Unable to deque evenCell")
         }
         
-        let episode = GOTSeasons[indexPath.section][indexPath.row]
+        let episode = GOTEpisodes[indexPath.section][indexPath.row]
         
         if episode.season % 2
             == 0 {
@@ -63,10 +73,10 @@ extension ViewController : UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-       return GOTSeasons.count
+       return GOTEpisodes.count
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Season \(GOTSeasons[section].first!.season)"
+        return "Season \(GOTEpisodes[section].first!.season)"
     }
 }
 
